@@ -33,6 +33,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-sleuth'
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'tpope/vim-dispatch'
+Plugin 'pangloss/vim-javascript'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -71,7 +73,6 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
-
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
 
@@ -80,3 +81,6 @@ set number
 
 autocmd BufNewFile,BufRead *.json set ft=javascript
 set hlsearch
+set splitbelow
+set splitright
+set number relativenumber
