@@ -83,4 +83,7 @@ autocmd BufNewFile,BufRead *.json set ft=javascript
 set hlsearch
 set splitbelow
 set splitright
-set number relativenumber
+nnoremap <C-j> <C-W><C-J>
+nnoremap <C-k> <C-W><C-K>
+nnoremap <C-h> <C-W><C-H>
+nnoremap <C-l> <C-W><C-L>
