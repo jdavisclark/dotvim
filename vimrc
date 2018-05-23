@@ -1,19 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" Centralize backups, swapfiles and undo history
-"set backupdir=~/.vim/backups
-"set directory=~/.vim/swaps
-"if exists("&undodir")
-"	set undodir=~/.vim/undo
-"endif
-
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -35,31 +25,38 @@ Plugin 'tpope/vim-sleuth'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-dispatch'
 Plugin 'pangloss/vim-javascript'
-
+Plugin 'kshenoy/vim-signature'
+Plugin 'fweep/vim-tabber'
+Plugin 'vim-ruby/vim-ruby'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
+"" To ignore plugin indent changes, instead use:
+"" Brief help
+"" :PluginList       - lists configured plugins
+"" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+"" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+"" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+""
+"" see :h vundle for more details or wiki for FAQ
+"" Put your non-Plugin stuff after this line
 "
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
 syntax on
 filetype plugin indent on
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 set smartindent
-set tabstop=4
-set shiftwidth=4
-set noexpandtab
+set tabstop=2
+set shiftwidth=2
 set ic
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/venv/*
+
+" using the mouse is an antipattern, but its super useful for casually
+" browsing source sometimes
+"set mouse=a
+"if has("mouse_sgr")
+"    set ttymouse=sgr
+"else
+"    set ttymouse=xterm2
+"end
 
 let g:airline_theme='zenburn'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
@@ -79,11 +76,20 @@ map <C-n> :NERDTreeToggle<CR>
 colorscheme flatlandia
 set number
 
-autocmd BufNewFile,BufRead *.json set ft=javascript
 set hlsearch
 set splitbelow
 set splitright
 nnoremap <C-j> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
 nnoremap <C-h> <C-W><C-H>
-nnoremap <C-l> <C-W><C-L>
+nnoremap <C-l> <C-W><C-La
+
+" cause I hit shift every time by mistake somehow
+cnoreabbrev W w  
+
+set tabline=%!tabber#TabLine()
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+"autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
