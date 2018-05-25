@@ -16,7 +16,6 @@ Plugin 'chankaward/vim-railscasts-theme'
 Plugin 'jdc0589/flatlandia'
 Plugin 'scrooloose/nerdTree'
 
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'PProvost/vim-ps1.git'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-airline/vim-airline'
@@ -28,6 +27,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'kshenoy/vim-signature'
 Plugin 'fweep/vim-tabber'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'junegunn/fzf'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 "" To ignore plugin indent changes, instead use:
@@ -39,7 +39,6 @@ call vundle#end()            " required
 ""
 "" see :h vundle for more details or wiki for FAQ
 "" Put your non-Plugin stuff after this line
-"
 syntax on
 filetype plugin indent on
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
@@ -70,6 +69,10 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
+map <C-p> :FZF<CR>
+let g:fzf_files_options =
+	\ '--preview "(highlight -O ansi {} || cat {})'.
+	\ ' > /dev/null | head -'.&lines.'"'
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
 
@@ -83,13 +86,23 @@ nnoremap <C-j> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
 nnoremap <C-h> <C-W><C-H>
 nnoremap <C-l> <C-W><C-La
+set backspace=indent,eol,start
+
+" bad habbits are bad, and I hate myself....
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " cause I hit shift every time by mistake somehow
-cnoreabbrev W w  
+cnoreabbrev W w
+
+cnoreabbrev vterminal vertical terminal
+cnoreabbrev vt vertical terminal
 
 set tabline=%!tabber#TabLine()
 
-highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-au InsertLeave * match ExtraWhitespace /\s\+$/
+highlight ShitWhitespace ctermbg=red guibg=red
+au InsertEnter * match ShitWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ShitWhitespace /\s\+$/
 "autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
