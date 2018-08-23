@@ -16,18 +16,19 @@ Plugin 'chankaward/vim-railscasts-theme'
 Plugin 'jdc0589/flatlandia'
 Plugin 'scrooloose/nerdTree'
 
-Plugin 'PProvost/vim-ps1.git'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-sleuth'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'tpope/vim-dispatch'
-Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-endwise'
 Plugin 'kshenoy/vim-signature'
 Plugin 'fweep/vim-tabber'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'junegunn/fzf'
+Plugin 'open-browser.vim'
+Plugin 'tyru/open-browser-github.vim'
+Plugin 'tpope/vim-eunuch'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 "" To ignore plugin indent changes, instead use:
@@ -59,15 +60,9 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/venv/*
 
 let g:airline_theme='zenburn'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-let g:rspec_command = "!clear && echo {spec} && bundle exec rspec {spec}"
 
-let mapleader=","
-
-" RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+" make test commands execute using dispatch.vim
+let test#strategy = "vimterminal"
 
 map <C-p> :FZF<CR>
 let g:fzf_files_options =
@@ -85,7 +80,7 @@ set splitright
 nnoremap <C-j> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
 nnoremap <C-h> <C-W><C-H>
-nnoremap <C-l> <C-W><C-La
+nnoremap <C-l> <C-W><C-L>
 set backspace=indent,eol,start
 
 " bad habbits are bad, and I hate myself....
@@ -99,10 +94,13 @@ cnoreabbrev W w
 
 cnoreabbrev vterminal vertical terminal
 cnoreabbrev vt vertical terminal
+cnoreabbrev ogf OpenGithubFile
 
 set tabline=%!tabber#TabLine()
 
 highlight ShitWhitespace ctermbg=red guibg=red
 au InsertEnter * match ShitWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ShitWhitespace /\s\+$/
-"autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+au InsertEnter * set cursorline
+au InsertLeave * set nocursorline
