@@ -1,4 +1,3 @@
-set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -12,10 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
-Plugin 'chankaward/vim-railscasts-theme'
-Plugin 'jdc0589/flatlandia'
 Plugin 'scrooloose/nerdTree'
-
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -24,11 +20,12 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-endwise'
 Plugin 'kshenoy/vim-signature'
 Plugin 'fweep/vim-tabber'
-Plugin 'vim-ruby/vim-ruby'
 Plugin 'junegunn/fzf'
 Plugin 'open-browser.vim'
 Plugin 'tyru/open-browser-github.vim'
 Plugin 'tpope/vim-eunuch'
+Plugin 'junegunn/goyo.vim'
+Plugin 'jdc0589/flatlandia'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 "" To ignore plugin indent changes, instead use:
@@ -73,6 +70,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 colorscheme flatlandia
 set number
+set tabline=%!tabber#TabLine()
 
 set hlsearch
 set splitbelow
@@ -82,6 +80,10 @@ nnoremap <C-k> <C-W><C-K>
 nnoremap <C-h> <C-W><C-H>
 nnoremap <C-l> <C-W><C-L>
 set backspace=indent,eol,start
+
+" tabs
+"nnoremap <C-]> tabnext
+"nnoremap <C-[> tabprevious
 
 " bad habbits are bad, and I hate myself....
 noremap <Up> <NOP>
@@ -96,7 +98,6 @@ cnoreabbrev vterminal vertical terminal
 cnoreabbrev vt vertical terminal
 cnoreabbrev ogf OpenGithubFile
 
-set tabline=%!tabber#TabLine()
 
 highlight ShitWhitespace ctermbg=red guibg=red
 au InsertEnter * match ShitWhitespace /\s\+\%#\@<!$/
@@ -104,3 +105,4 @@ au InsertLeave * match ShitWhitespace /\s\+$/
 
 au InsertEnter * set cursorline
 au InsertLeave * set nocursorline
+
